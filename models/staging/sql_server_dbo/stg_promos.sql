@@ -8,7 +8,7 @@ with
 
 source as (
 
-    select * from {{ source('SQL_SERVER_DBO', 'PROMOS') }}
+    select * from {{ source('sql_server_dbo', 'promos') }}
 
 ),
 

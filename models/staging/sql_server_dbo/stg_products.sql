@@ -8,18 +8,17 @@ with
 
 source as (
 
-    select * from {{ source('SQL_SERVER_DBO', 'ADDRESSES') }}
+    select * from {{ source('sql_server_dbo', 'products') }}
 
 ),
 
 temporal as (
 
     select
-        address_id,
-        zipcode,
-        country,
-        address,
-        state,
+        product_id,
+        price,
+        name,
+        inventory,
         _fivetran_deleted,
         _fivetran_synced
 

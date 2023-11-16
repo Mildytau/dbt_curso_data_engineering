@@ -8,11 +8,11 @@ with
 
 source as (
 
-    select * from {{ source('SQL_SERVER_DBO', 'EVENTS') }}
+    select * from {{ source('sql_server_dbo', 'events') }}
 
 ),
 
-temporal as (
+renamed as (
 
     select
         event_id,
@@ -30,4 +30,4 @@ temporal as (
 
 )
 
-select * from temporal
+select * from renamed
