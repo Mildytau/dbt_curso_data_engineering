@@ -144,3 +144,5 @@
           - name: ADDRESS_ID
             tests:
               - unique
+
+dbt run --select "config.materialized:incremental"

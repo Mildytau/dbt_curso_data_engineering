@@ -17,7 +17,7 @@ sources:
 
     tables:
 
-      - name: ADDRESSES
+      - name: addresses
         loaded_at_field: _fivetran_synced
         columns:
           - name: ADDRESS_ID
@@ -27,7 +27,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: EVENTS
+      - name: events
         loaded_at_field: _fivetran_synced
         columns:
           - name: EVENT_ID
@@ -41,7 +41,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: ORDERS
+      - name: orders
         loaded_at_field: _fivetran_synced
         columns:
           - name: ORDER_ID
@@ -60,7 +60,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: ORDER_ITEMS
+      - name: order_items
         loaded_at_field: _fivetran_synced
         columns:
           - name: ORDER_ID
@@ -79,7 +79,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: PROMOS
+      - name: promos
         loaded_at_field: _fivetran_synced
         columns:
           - name: PROMO_ID
@@ -88,7 +88,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-      - name: USERS
+      - name: users
         loaded_at_field: _fivetran_synced
         columns:
           - name: USER_ID
