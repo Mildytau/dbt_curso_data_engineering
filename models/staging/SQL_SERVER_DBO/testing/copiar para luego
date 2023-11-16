@@ -1,43 +1,35 @@
-version: 2
-
-sources:
-
-  - name: sql_server_dbo # name of the source 
-    schema: SQL_SERVER_DBO # this is the schema our raw data lives in
-    database: ALUMNO8_DEV_BRONZE_DB # this is the name of our database
-
-    quoting:
-      database: false
-      schema: false
-      identifier: false
-
-    freshness:
-      warn_after: {count: 32, period: day}
-      error_after: {count: 33, period: day}
-
-    tables:
-
-      - name: ADDRESSES
-        loaded_at_field: _fivetran_synced
-        columns:
-          - name: ADDRESS_ID
-          - name: ZIPCODE
-          - name: COUNTRY
-          - name: ADDRESS
-          - name: _FIVETRAN_DELETED
-          - name: _FIVETRAN_SYNCED
-
-      - name: EVENTS
+- name: EVENTS
         loaded_at_field: _fivetran_synced
         columns:
           - name: EVENT_ID
+            tests:
+              - unique
+              - not_null
           - name: PAGE_URL
+            tests:
+              - unique
+              - not_null
           - name: EVENT_TYPE
+            tests:
+              - unique
+              - not_null
           - name: USER_ID
+            tests:
+              - unique
+              - not_null
           - name: PRODUCT_ID
+            tests:
+              - unique
+              - not_null
           - name: SESSION_ID
+            tests:
+              - unique
+              - not_null
           - name: CREATED_AT
           - name: ORDER_ID
+            tests:
+              - unique
+              - not_null
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
@@ -45,18 +37,46 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: ORDER_ID
+            tests:
+              - unique
+              - not_null
           - name: SHIPPING_SERVICE
+            tests:
+              - unique
+              - not_null
           - name: SHIPPING_COST
+            tests:
+              - unique
+              - not_null
           - name: ADDRESS_ID
+            tests:
+              - unique
+              - not_null
           - name: CREATED_AT
           - name: PROMO_ID
+            tests:
+              - unique
+              - not_null
           - name: ESTIMATED_DELIVERY_AT
           - name: ORDER_COST
+            tests:
+              - unique
+              - not_null
           - name: USER_ID
+            tests:
+              - unique
+              - not_null
           - name: ORDER_TOTAL
+            tests:
+              - not_null
           - name: DELIVERED_AT
           - name: TRACKING_ID
+            tests:
+              - unique
+              - not_null
           - name: STATUS
+            tests:
+              - not_null
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
@@ -64,8 +84,16 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: ORDER_ID
+            tests:
+              - unique
+              - not_null
           - name: PRODUCT_ID
+            tests:
+              - unique
+              - not_null
           - name: QUANTITY
+            tests:
+              - not_null
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
@@ -73,9 +101,19 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: PRODUCT_ID
+            tests:
+              - unique
+              - not_null
           - name: PRICE
+            tests:
+              - not_null
           - name: NAME
+            tests:
+              - unique
+              - not_null
           - name: INVENTORY
+            tests:
+              - not_null
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
@@ -83,8 +121,15 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: PROMO_ID
+            tests:
+              - unique
+              - not_null
           - name: DISCOUNT
+            tests:
+              - not_null
           - name: STATUS
+            tests:
+              - not_null
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
@@ -92,13 +137,10 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: USER_ID
+            tests:
+              - unique
+              - not_null
           - name: UPDATED_AT
           - name: ADDRESS_ID
-          - name: LAST_NAME
-          - name: CREATED_AT
-          - name: PHONE_NUMBER
-          - name: TOTAL_ORDERS
-          - name: FIRST_NAME
-          - name: EMAIL
-          - name: _FIVETRAN_DELETED
-          - name: _FIVETRAN_SYNCED
+            tests:
+              - unique
