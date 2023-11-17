@@ -4,3 +4,76 @@
               - not_null
 
 dbt run --select "config.materialized:incremental"
+
+
+
+
+
+{% set event_types = ["checkout", "package_shipped", "add_to_cart","page_view"] %}
+WITH stg_events AS (
+    SELECT * 
+    FROM {{ ref('stg_sql_server_dbo_events') }}
+    ),
+
+renamed_casted AS (
+    SELECT
+        user_id,
+        {%- for event_type in event_types   %}
+        sum(case when event_type = '{{event_type}}' then 1 end) as {{event_type}}_amount
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+    FROM stg_events
+    GROUP BY 1
+    )
+
+SELECT * FROM renamed_casted
+
+
+
+
+
+
+
+{% macro obtener_valores(table, column) %}
+  --Preparamos la query
+  {% set query_sql %}
+    SELECT DISTINCT {{column}} FROM {{table}}
+    {% endset %}
+    --Ejecutamos la query    
+    {% set results = run_query(query_sql) %}
+    --En caso de que se ejecute
+    {% if execute %}
+    --Devolvemos los valores de la primera columna
+        {% set results_list = results.columns[0].values() %}
+    {% else %}
+        {% set results_list = [] %}
+    {% endif %}
+
+{{ return(results_list) }}
+{% endmacro %}
+
+
+
+
+
+
+
+
+{% set event_types = obtener_tipo_eventos() %}
+WITH stg_events AS (
+    SELECT * 
+    FROM {{ ref('stg_sql_server_dbo_events') }}
+    ),
+
+renamed_casted AS (
+    SELECT
+        user_id,
+        {%- for event_type in event_types   %}
+        sum(case when event_type = '{{event_type}}' then 1 end) as {{event_type}}_amount
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+    FROM stg_events
+    GROUP BY 1
+    )
+
+SELECT * FROM renamed_casted
