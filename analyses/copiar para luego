@@ -8,6 +8,10 @@ dbt run --select "config.materialized:incremental"
 
 
 
+dbt run-operation generate_source --args '{"schema_name": "sql_server_dbo", "database_name": "<ALUMNO>_DEV_BRONZE_DB", "generate_columns": "true", "include_descriptions": "true"}'
+
+
+
 
 {% set event_types = ["checkout", "package_shipped", "add_to_cart","page_view"] %}
 WITH stg_events AS (
@@ -77,3 +81,9 @@ renamed_casted AS (
     )
 
 SELECT * FROM renamed_casted
+
+
+
+
+
+{{ dbt_utils.generate_surrogate_key(['field_a', 'field_b'[,...]]) }}
