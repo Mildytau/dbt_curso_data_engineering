@@ -1,7 +1,6 @@
 version: 2
 
 sources:
-  
   - name: "sql_server_dbo"
     schema: "sql_server_dbo"
     database: "alumno8_dev_bronze_db"
@@ -12,8 +11,8 @@ sources:
       identifier: false
 
     freshness:
-      warn_after: {count: 32, period: day}
-      error_after: {count: 33, period: day}
+      warn_after: { count: 32, period: day }
+      error_after: { count: 33, period: day }
 
     tables:
       - name: addresses

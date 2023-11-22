@@ -3,14 +3,20 @@
               - unique
               - not_null
 
+
+//-------------------------------------------------//
+
+
 dbt run --select "config.materialized:incremental"
 
 
+//-----------------------------------------------------------//
 
 
 dbt run-operation generate_source --args '{"schema_name": "sql_server_dbo", "database_name": "<ALUMNO>_DEV_BRONZE_DB", "generate_columns": "true", "include_descriptions": "true"}'
 
 
+//--------------------------------------------------------------//
 
 
 {% set event_types = ["checkout", "package_shipped", "add_to_cart","page_view"] %}
@@ -34,7 +40,7 @@ SELECT * FROM renamed_casted
 
 
 
-
+//---------------------------------------------------//
 
 
 
@@ -59,7 +65,7 @@ SELECT * FROM renamed_casted
 
 
 
-
+//-------------------------------------------------------------------//
 
 
 
@@ -83,7 +89,129 @@ renamed_casted AS (
 SELECT * FROM renamed_casted
 
 
-
+//--------------------------------------------------------------------------//
 
 
 {{ dbt_utils.generate_surrogate_key(['field_a', 'field_b'[,...]]) }}
+
+
+//----------------------------------------------------------------------------//
+
+
+{{ config(
+    materialized='incremental'
+    ) 
+    }}
+
+
+WITH stg_budget_products AS (
+    SELECT * 
+    FROM {{ source('google_sheets','budget') }}
+{% if is_incremental() %}
+
+	  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
+    ),
+
+renamed_casted AS (
+    SELECT
+          _row
+        , month
+        , quantity 
+        , _fivetran_synced
+    FROM stg_budget_products
+    )
+
+SELECT * FROM renamed_casted
+
+
+//---------------------------------------------------------//
+
+
+{{ config(
+  materialized='table',
+  unique_key='promo_id_subrogada',
+  relationships={
+    'promo_id_subrogada': 'promos.promo_id'
+  }
+) }}
+
+with fuente as (
+    select * from {{ source('sql_server_dbo', 'promos') }}
+),
+
+stg_promos as (
+    select
+        promo_id as promo_id,
+        discount,
+        status as status,
+        MD5(CAST(promo_id AS STRING) || CAST(discount AS STRING) || COALESCE(status, '')) AS promo_id_subrogated,
+        _fivetran_synced as date_load
+    from fuente
+)
+
+select 
+    promo_type,
+    discount,
+    promo_status,
+    promo_id_subrogated
+from stg_promos
+group by 1, 2, 3, 4
+having count(*) = 1
+
+
+
+//-----------------------------------------------------------------//
+
+
+{{
+  config(
+    materialized='table'
+  )
+}}
+
+with 
+
+source as (
+
+    select * from {{ source('sql_server_dbo', 'promos') }}
+
+),
+
+renamed as (
+
+    select
+        promo_id,
+        discount,
+        status,
+        _fivetran_deleted
+        _fivetran_synced
+
+    from source
+
+)
+
+select * from renamed
+
+
+//----------------------------------------------------------//
+
+{% snapshot budget_snapshot %}
+
+{{
+    config(
+      target_schema='snapshots',
+      unique_key='_row',
+      strategy='timestamp',
+      updated_at='_fivetran_synced',
+
+      /*check_cols=['quantity'],
+
+      invalidate_hard_deletes=True,*/
+    )
+}}
+
+select * from {{ source('google_sheets', 'budget') }}
+
+{% endsnapshot %}

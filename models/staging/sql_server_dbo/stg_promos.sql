@@ -8,21 +8,25 @@ with
 
 source as (
 
-    select * from {{ source('sql_server_dbo', 'promos') }}
+    select * from alumno8_dev_bronze_db.sql_server_dbo.promos
 
 ),
 
-temporal as (
+renamed as (
 
     select
-        promo_id,
+        md5(cast(coalesce(cast(promo_id as 
+    varchar
+), '') as 
+    varchar
+)) as promo_id,
         discount,
         status,
-        _fivetran_deleted,
+        _fivetran_deleted
         _fivetran_synced
 
     from source
 
 )
 
-select * from temporal
+select * from renamed
