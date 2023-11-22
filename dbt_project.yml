@@ -42,4 +42,4 @@ models:
       +materialized: view
 
 vars:
-  surrogate_key_treat_nulls_as_empty_strings: true #turn on legacy behaviour
+  surrogate_key_treat_nulls_as_empty_strings: True #turn on legacy behaviour

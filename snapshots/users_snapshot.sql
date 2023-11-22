@@ -4,12 +4,12 @@
     config(
       target_schema='snapshots',
       unique_key='user_id',
-      strategy='timestamp',
-      updated_at='_fivetran_synced',
+      strategy='check',
+      check_cols=['address_id'],
       invalidate_hard_deletes=True,
     )
 }}
 
-select * from {{ ref('stg_users') }} where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+select * from {{ ref('stg_users') }} where f_carga > (select max(f_carga) from {{ ref('stg_users') }})
 
 {% endsnapshot %}
