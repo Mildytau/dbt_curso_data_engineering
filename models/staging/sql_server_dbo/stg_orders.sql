@@ -13,7 +13,7 @@ temporal as (
         cast(created_at as timestamp_ntz) as created_at,
         cast(
             decode(
-                promo_id, '', '9999', {{ dbt_utils.surrogate_key(["promo_id"]) }}
+                promo_id, '', '9999', {{ dbt_utils.generate_surrogate_key(["promo_id"]) }}
             ) as varchar(50)
         ) as promo_id,
         cast(estimated_delivery_at as timestamp_ntz) as estimated_delivery_at,
