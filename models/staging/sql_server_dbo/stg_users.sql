@@ -1,31 +1,26 @@
-{{
-    config(
-        materialized='table'
-    )
-}}
+{{config(materialized='table')}}
 
 with 
 
-source as (
-
-    select * from {{ source('sql_server_dbo', 'users') }}
-
+source as (select * from {{ source('sql_server_dbo', 'users') }}
 ),
 
 temporal as (
 
     select
-        user_id,
-        updated_at,
-        address_id,
-        last_name,
-        created_at,
-        phone_number,
-        total_orders,
-        first_name,
-        email,
-        _fivetran_deleted,
-        _fivetran_synced
+        cast(
+            {{ dbt_utils.generate_surrogate_key(["user_id"])}} as varchar(256)
+        ) as user_id,
+        cast(
+            {{ dbt_utils.generate_surrogate_key(["address_id"])}} as varchar(256)
+        ) as address_id,
+        cast(first_name as varchar(50)) as first_name,
+        cast(last_name as varchar(50)) as last_name,
+        cast(created_at as timestamp_ntz) as created_at,
+        cast(updated_at as timestamp_ntz) as updated_at,
+        cast(phone_number as varchar(256)) as phone_number,
+        cast(email as varchar(256)) as email,
+        cast(_fivetran_synced as timestamp_ntz) as _fivetran_synced
 
     from source
 

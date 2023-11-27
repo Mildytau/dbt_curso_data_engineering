@@ -262,3 +262,47 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: view
+
+
+//--------------------------------------------------------------------//
+
+union all
+select
+    '9999' as promo_id,
+    'Sin promo' as des_promo,
+    '0' as discount,
+    'inactive' as status,
+    {{ dbt_date.now("America/New_York")}} as date_load
+
+
+//-------------------------------------------------------------------------//
+
+
+{{
+  config(
+    materialized='table'
+  )
+}}
+
+with 
+
+source as (
+
+    select * from {{ source('sql_server_dbo', 'addresses') }}
+
+),
+
+temporal as (
+
+    select
+        address_id,
+        zipcode,
+        country,
+        address,
+        state,
+        _fivetran_deleted,
+        _fivetran_synced
+
+    from source
+
+)

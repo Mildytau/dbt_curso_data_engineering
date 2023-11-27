@@ -15,10 +15,3 @@ temporal as (
 )
 
 select * from temporal
-union all
-select
-    '9999' as promo_id,
-    'Sin promo' as des_promo,
-    '0' as discount,
-    'inactive' as status,
-    {{ dbt_date.now("America/New_York")}} as date_load
