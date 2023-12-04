@@ -13,10 +13,11 @@ with date as (
         end_date="cast(current_date()+1 as date)"
     )
     }}  
-)
+),
 
 
-select
+renamed_casted AS(
+    select
       date_day as forecast_date
     , year(date_day)*10000+month(date_day)*100+day(date_day) as date_id
     , year(date_day) as year
@@ -26,6 +27,13 @@ select
     , date_day-1 as previous_day
     , year(date_day)||weekiso(date_day)||dayofweek(date_day) as year_week_day
     , weekiso(date_day) as week
+    ,{{ dbt_date.now("Europe/Madrid") }} as full_current_time
+    ,date_part('hour', {{ dbt_date.now("Europe/Madrid") }}) as current_hour
+    ,date_part('minute', {{ dbt_date.now("Europe/Madrid") }}) as current_minute
+    ,date_part('second', {{ dbt_date.now("Europe/Madrid") }}) as current_second
 from date
 order by
     date_day desc
+)
+
+SELECT * FROM renamed_casted

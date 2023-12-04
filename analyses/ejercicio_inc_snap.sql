@@ -1,4 +1,4 @@
-{{ config(materialized='incremental') }}
+J{{ config(materialized='incremental') }}
 
 with source as (
     select * from {{ source('sql_server_dbo', 'users') }}
