@@ -43,6 +43,8 @@ models:
         +schema: google_sheets
       sql_server_dbo:
         +schema: sql_server_dbo
+      coffee_shop:
+        +schema: coffee_shop
       
     marts:
       +materialized: table
