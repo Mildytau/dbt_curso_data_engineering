@@ -1,8 +1,9 @@
-{{config(materialized='table')}}
+{{ config(materialized='table') }}
 
 with source as (
     select * from {{ source('seed_data', 'number_customer') }}
 ),
+
 renamed as (
     select
         "customer_id",
@@ -16,4 +17,5 @@ renamed as (
         "birth_year"
     from source
 )
+
 select * from renamed

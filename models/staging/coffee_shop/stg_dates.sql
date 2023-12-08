@@ -1,19 +1,21 @@
-{{config(materialized='table')}}
+{{ config(materialized='table') }}
 
 with source as (
     select * from {{ source('seed_data', 'dates_april') }}
 ),
+
 renamed as (
     select
+        "Date_ID",
         "transaction_date",
-        "date_id",
-        "week_id",
-        "week_desc",
-        "month_id",
-        "month_name",
-        "quarter_id",
-        "quarter_name",
-        "year_id"
+        "Week_ID",
+        "Week_Desc",
+        "Month_ID",
+        "Month_Name",
+        "Quarter_ID",
+        "Quarter_Name",
+        "Year_ID"
     from source
 )
+
 select * from renamed
