@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: "coffee_shop"
-    schema: "coffee_shop"
-    database: "alumno8_dev_bronze_db"
-
+  - name: seed_data
+    description: ""
+    database: alumno8_dev_bronze_db
+    
     quoting:
       database: false
       schema: false
@@ -13,8 +13,39 @@ sources:
     freshness:
       warn_after: { count: 32, period: day }
       error_after: { count: 33, period: day }
-    
+
     tables:
+      - name: dates_april
+        description: ""
+        columns:
+          - name: transaction_date
+            data_type: varchar
+            description: ""
+          - name: date_id
+            data_type: number
+            description: ""
+          - name: week_id
+            data_type: number
+            description: ""
+          - name: week_desc
+            data_type: varchar
+            description: ""
+          - name: month_id
+            data_type: number
+            description: ""
+          - name: month_name
+            data_type: varchar
+            description: ""
+          - name: quarter_id
+            data_type: number
+            description: ""
+          - name: quarter_name
+            data_type: varchar
+            description: ""
+          - name: year_id
+            data_type: number
+            description: ""
+
       - name: generations
         description: ""
         columns:
@@ -24,7 +55,103 @@ sources:
           - name: generation
             data_type: varchar
             description: ""
-      
+
+      - name: number_customer
+        description: ""
+        columns:
+          - name: customer_id
+            data_type: number
+            description: ""
+          - name: home_store
+            data_type: number
+            description: ""
+          - name: customer_first_name
+            data_type: varchar
+            description: ""
+          - name: customer_email
+            data_type: varchar
+            description: ""
+          - name: customer_since
+            data_type: date
+            description: ""
+          - name: loyalty_card_number
+            data_type: varchar
+            description: ""
+          - name: birthdate
+            data_type: date
+            description: ""
+          - name: gender
+            data_type: varchar
+            description: ""
+          - name: birth_year
+            data_type: number
+            description: ""
+
+      - name: number_sales_outlet
+        description: ""
+        columns:
+          - name: number_outlet_id
+            data_type: number
+            description: ""
+          - name: sales_outlet_type
+            data_type: varchar
+            description: ""
+          - name: store_square_feet
+            data_type: number
+            description: ""
+          - name: store_address
+            data_type: varchar
+            description: ""
+          - name: store_city
+            data_type: varchar
+            description: ""
+          - name: store_state_province
+            data_type: varchar
+            description: ""
+          - name: store_telephone
+            data_type: varchar
+            description: ""
+          - name: store_postal_code
+            data_type: number
+            description: ""
+          - name: store_longitude
+            data_type: float
+            description: ""
+          - name: store_latitude
+            data_type: float
+            description: ""
+          - name: manager
+            data_type: number
+            description: ""
+          - name: neighorhood
+            data_type: varchar
+            description: ""
+
+      - name: pastry_inventory
+        description: ""
+        columns:
+          - name: sales_outlet_id
+            data_type: number
+            description: ""
+          - name: transaction_date
+            data_type: varchar
+            description: ""
+          - name: product_id
+            data_type: number
+            description: ""
+          - name: start_of_day
+            data_type: number
+            description: ""
+          - name: quantity_sold
+            data_type: number
+            description: ""
+          - name: waste
+            data_type: number
+            description: ""
+          - name: percentage_waste
+            data_type: number
+            description: ""
+
       - name: product
         description: ""
         columns:
@@ -64,57 +191,7 @@ sources:
           - name: new_product_yn
             data_type: varchar
             description: ""
-      - name: staff
-        description: ""
-        columns:
-          - name: staff_id
-            data_type: number
-            description: ""
-          - name: first_name
-            data_type: varchar
-            description: ""
-          - name: last_name
-            data_type: varchar
-            description: ""
-          - name: position
-            data_type: varchar
-            description: ""
-          - name: start_date
-            data_type: varchar
-            description: ""
-          - name: location
-            data_type: varchar
-            description: ""
-          - name: g
-            data_type: number
-            description: ""
-          - name: h
-            data_type: number
-            description: ""
-      - name: sales_targets
-        description: ""
-        columns:
-          - name: sales_outlet_id
-            data_type: number
-            description: ""
-          - name: year_month
-            data_type: varchar
-            description: ""
-          - name: beans_goal
-            data_type: number
-            description: ""
-          - name: beverage_goal
-            data_type: number
-            description: ""
-          - name: food_goal
-            data_type: number
-            description: ""
-          - name: merchandise_goal
-            data_type: number
-            description: ""
-          - name: total_goal
-            data_type: number
-            description: ""
+
       - name: sales_reciepts
         description: ""
         columns:
@@ -160,128 +237,56 @@ sources:
           - name: promo_item_yn
             data_type: varchar
             description: ""
-      - name: number_sales_outlet
+
+      - name: sales_targets
         description: ""
         columns:
           - name: sales_outlet_id
             data_type: number
             description: ""
-          - name: sales_outlet_type
+          - name: year_month
             data_type: varchar
             description: ""
-          - name: store_square_feet
+          - name: beans_goal
             data_type: number
             description: ""
-          - name: store_address
-            data_type: varchar
-            description: ""
-          - name: store_city
-            data_type: varchar
-            description: ""
-          - name: store_state_province
-            data_type: varchar
-            description: ""
-          - name: store_telephone
-            data_type: varchar
-            description: ""
-          - name: store_postal_code
+          - name: beverage_goal
             data_type: number
             description: ""
-          - name: store_longitude
-            data_type: float
-            description: ""
-          - name: store_latitude
-            data_type: float
-            description: ""
-          - name: manager
+          - name: food_goal
             data_type: number
             description: ""
-          - name: neighorhood
-            data_type: varchar
-            description: ""
-      - name: pastry_inventory
-        description: ""
-        columns:
-          - name: sales_outlet_id
+          - name: merchandise_goal
             data_type: number
             description: ""
-          - name: transaction_date 
-            data_type: varchar
-            description: ""
-          - name: product_id
-            data_type: number
-            description: ""
-          - name: start_of_day
-            data_type: number
-            description: ""
-          - name: quantity_sold
-            data_type: number
-            description: ""
-          - name: waste
-            data_type: number
-            description: ""
-          - name: percentage_waste
-            data_type: number
-            description: ""
-      
-      - name: dates_april
-        description: ""
-        columns:
-          - name: transaction_date
-            data_type: varchar
-            description: ""
-          - name: date_id
-            data_type: number
-            description: ""
-          - name: week_id
-            data_type: number
-            description: ""
-          - name: week_desc
-            data_type: varchar
-            description: ""
-          - name: month_id
-            data_type: number
-            description: ""
-          - name: month_name
-            data_type: varchar
-            description: ""
-          - name: quarter_id
-            data_type: number
-            description: ""
-          - name: quarter_name
-            data_type: varchar
-            description: ""
-          - name: year_id
+          - name: total_goal
             data_type: number
             description: ""
 
-      - name: number_customer
+      - name: staff
         description: ""
         columns:
-          - name: customer_id
+          - name: staff_id
             data_type: number
             description: ""
-          - name: home_store
+          - name: first_name
+            data_type: varchar
+            description: ""
+          - name: last_name
+            data_type: varchar
+            description: ""
+          - name: position
+            data_type: varchar
+            description: ""
+          - name: start_date
+            data_type: varchar
+            description: ""
+          - name: location
+            data_type: varchar
+            description: ""
+          - name: g
             data_type: number
             description: ""
-          - name: customer_first_name
-            data_type: varchar
-            description: ""
-          - name: customer_email
-            data_type: varchar
-            description: ""
-          - name: customer_since
-            data_type: date
-            description: ""
-          - name: loyalty_card_number
-            data_type: varchar
-            description: ""
-          - name: birthdate
-            data_type: date
-            description: ""
-          - name: gender
-            data_type: varchar
-            description: ""
-          - name: birth_year
+          - name: h
             data_type: number
             description: ""
