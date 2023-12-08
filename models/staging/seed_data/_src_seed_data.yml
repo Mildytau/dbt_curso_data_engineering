@@ -4,16 +4,6 @@ sources:
   - name: seed_data
     description: ""
     database: alumno8_dev_bronze_db
-    
-    quoting:
-      database: false
-      schema: false
-      identifier: false
-
-    freshness:
-      warn_after: { count: 32, period: day }
-      error_after: { count: 33, period: day }
-
     tables:
       - name: dates_april
         description: ""

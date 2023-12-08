@@ -1,18 +1,12 @@
-{{ config(materialized='table') }}
+{{config(materialized='table')}}
 
-with
-
-source as (select * from {{ ref('generations') }}
+with source as (
+    select * from {{ source('seed_data', 'generations') }}
 ),
-
 renamed as (
-
     select
-        birth_year,
-        cast(generation as varchar(1024)) as generation
-
+        "birth_year",
+        "generation"
     from source
-
 )
-
 select * from renamed

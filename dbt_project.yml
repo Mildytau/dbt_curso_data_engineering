@@ -45,6 +45,8 @@ models:
         +schema: sql_server_dbo
       coffee_shop:
         +schema: coffee_shop
+      seed_data:
+        +schema: seed_data
       
     marts:
       +materialized: table
