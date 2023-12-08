@@ -9,8 +9,8 @@ source as (
 renamed as (
 
     select
-        generation,
-        birth_year
+        trim(generation, ' '),
+        trim(birth_year, ' ')
 
     from source
 
