@@ -6,7 +6,7 @@ with source as (
 
 renamed as (
     select
-        cast("Number_outlet_id" as varchar(4096)) as "outlet_id",
+        cast("Number_outlet_id" as varchar(4096)) as "sales_outlet_id",
         cast("sales_outlet_type" as varchar(4096)) as sales_outlet_type,
         cast("store_square_feet" as number) as store_square_feet,
         cast("store_address" as varchar(4096)) as store_address,
@@ -23,7 +23,7 @@ renamed as (
 
 with_change as (
     select
-        "outlet_id" as outlet_id,
+        "sales_outlet_id" as sales_outlet_id,
         sales_outlet_type,
         store_square_feet,
         store_address,
@@ -41,8 +41,8 @@ with_change as (
 with_hash as (
     select
         cast(
-            {{ dbt_utils.generate_surrogate_key(["outlet_id"]) }} as varchar(4096)
-        ) as outlet_id,
+            {{ dbt_utils.generate_surrogate_key(["sales_outlet_id"]) }} as varchar(4096)
+        ) as sales_outlet_id,
         sales_outlet_type,
         store_square_feet,
         store_address,
