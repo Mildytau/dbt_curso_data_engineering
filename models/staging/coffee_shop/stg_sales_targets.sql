@@ -7,7 +7,7 @@ with source as (
 renamed as (
     select
         cast("sales_outlet_id" as number) as sales_outlet_id,
-        cast("year_month" as varchar(1024)) as "year_month",
+        cast("year_month" as varchar(4096)) as "year_month",
         cast("beans_goal" as number) as beans_goal,
         cast("beverage_goal" as number) as beverage_goal,
         cast("food_goal" as number) as food_goal,
@@ -19,9 +19,9 @@ renamed as (
 with_changes as (
     select
         cast(
-            {{ dbt_utils.generate_surrogate_key(["sales_outlet_id"]) }} as varchar(1024)
+            {{ dbt_utils.generate_surrogate_key(["sales_outlet_id"]) }} as varchar(4096)
         ) as sales_outlet_id,
-        cast("year_month" as varchar(1024)) as year_month,
+        cast("year_month" as varchar(4096)) as year_month,
         beans_goal,
         beverage_goal,
         food_goal,
