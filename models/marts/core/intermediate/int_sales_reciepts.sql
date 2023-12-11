@@ -14,7 +14,6 @@ renamed as (
         customer_id,
         instore_yn,
         orders,
-        line_item_id,
         product_id,
         quantity,
         line_item_amount,

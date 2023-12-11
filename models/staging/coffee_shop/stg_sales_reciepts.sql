@@ -14,7 +14,6 @@ renamed as (
         cast("customer_id" as number) as customer_id,
         cast("instore_yn" as varchar(4096)) as instore_yn,
         cast("order" as number) as orders,
-        cast("line_item_id" as number) as line_item_id,
         cast("product_id" as number) as product_id,
         cast("quantity" as number) as quantity,
         cast("line_item_amount" as float) as line_item_amount,
@@ -41,9 +40,6 @@ with_hash as (
         ) as customer_id,
         instore_yn,
         orders,
-        cast(
-            {{ dbt_utils.generate_surrogate_key(["line_item_id"]) }} as varchar(4096)
-        ) as line_item_id,
         cast(
             {{ dbt_utils.generate_surrogate_key(["product_id"]) }} as varchar(4096)
         ) as product_id,

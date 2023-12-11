@@ -2,281 +2,281 @@ version: 2
 
 sources:
   - name: seed_data
-    description: ""
+    description: "all the info comes from previously seeded modified data"
     database: alumno8_dev_bronze_db
     tables:
       - name: dates_april
-        description: ""
+        description: "table with all days of april"
         columns:
           - name: transaction_date
             data_type: varchar
-            description: ""
+            description: "date format x/x/xxxx"
           - name: date_id
             data_type: number
-            description: ""
+            description: "previous format but without / -> XxxxXxXx"
           - name: week_id
             data_type: number
-            description: ""
+            description: "number of the week"
           - name: week_desc
             data_type: varchar
-            description: ""
+            description: "a bit more detailed description of number of the week"
           - name: month_id
             data_type: number
-            description: ""
+            description: "number of the month"
           - name: month_name
             data_type: varchar
-            description: ""
+            description: "the name of the month"
           - name: quarter_id
             data_type: number
-            description: ""
+            description: "the quarter of the year in number"
           - name: quarter_name
             data_type: varchar
-            description: ""
+            description: "the quarter of the year but in format Qx"
           - name: year_id
             data_type: number
-            description: ""
+            description: "the year ej:2019"
 
       - name: generations
-        description: ""
+        description: "a simple table to clasify niche info for sells"
         columns:
           - name: birth_year
             data_type: number
-            description: ""
+            description: "this column its a array of years from 1946 to 2015"
           - name: generation
             data_type: varchar
-            description: ""
+            description: "this column clasify your born year as a different generation group"
 
       - name: number_customer
-        description: ""
+        description: "table that contains the info of the registered usual clients"
         columns:
           - name: customer_id
             data_type: number
-            description: ""
+            description: "just a number to order upside down"
           - name: home_store
             data_type: number
-            description: ""
+            description: "the number of the store"
           - name: customer_first_name
             data_type: varchar
-            description: ""
+            description: "full name of the client"
           - name: customer_email
             data_type: varchar
-            description: ""
+            description: "the email of each client"
           - name: customer_since
             data_type: date
-            description: ""
+            description: "when was the client registered"
           - name: loyalty_card_number
             data_type: varchar
-            description: ""
+            description: "the specific number of each client"
           - name: birthdate
             data_type: date
-            description: ""
+            description: "birthdate"
           - name: gender
             data_type: varchar
-            description: ""
+            description: "gender male or female"
           - name: birth_year
             data_type: number
-            description: ""
+            description: "when was the client born"
 
       - name: number_sales_outlet
-        description: ""
+        description: "where are the shops located"
         columns:
           - name: number_outlet_id
             data_type: number
-            description: ""
+            description: "just a number to make it upside down"
           - name: sales_outlet_type
             data_type: varchar
-            description: ""
+            description: "the type of shop warehouse or retail"
           - name: store_square_feet
             data_type: number
-            description: ""
+            description: "how many feets tall is located"
           - name: store_address
             data_type: varchar
-            description: ""
+            description: "the address where you can find the shop"
           - name: store_city
             data_type: varchar
-            description: ""
+            description: "the city where its located"
           - name: store_state_province
             data_type: varchar
-            description: ""
+            description: "the province/state where is located"
           - name: store_telephone
             data_type: varchar
-            description: ""
+            description: "a telephone to contact them"
           - name: store_postal_code
             data_type: number
-            description: ""
+            description: "just the postal code where its the shop"
           - name: store_longitude
             data_type: float
-            description: ""
+            description: "the longitude where is located"
           - name: store_latitude
             data_type: float
-            description: ""
+            description: "the latitude where is located"
           - name: manager
             data_type: number
-            description: ""
+            description: "the number of the shop who manages"
           - name: neighorhood
             data_type: varchar
-            description: ""
+            description: "the neighorhood inside the city where teh shop is located"
 
       - name: pastry_inventory
-        description: ""
+        description: "this table is made for control the waste of the products"
         columns:
           - name: sales_outlet_id
             data_type: number
-            description: ""
+            description: "the number of the shop, later hash"
           - name: transaction_date
             data_type: varchar
-            description: ""
+            description: "when was the transaction made"
           - name: product_id
             data_type: number
-            description: ""
+            description: "the ID of the product"
           - name: start_of_day
             data_type: number
-            description: ""
+            description: "how many units we have at the start of the day"
           - name: quantity_sold
             data_type: number
-            description: ""
+            description: "units sold"
           - name: waste
             data_type: number
-            description: ""
+            description: "units wasted"
           - name: percentage_waste
             data_type: number
-            description: ""
+            description: "the percentage of the product wasted"
 
       - name: product
-        description: ""
+        description: "this table contains the list of all products sell and more details of them"
         columns:
           - name: product_id
             data_type: number
-            description: ""
+            description: "the ID of the product and a number to order them upside down"
           - name: product_group
             data_type: varchar
-            description: ""
+            description: "this column clasifies the items as drinks, coffee beans, tea, or merchandising"
           - name: product_category
             data_type: varchar
-            description: ""
+            description: "generic classification of the coffee/tea/product"
           - name: product_type
             data_type: varchar
-            description: ""
+            description: "more specifies classification of the product inside product_category"
           - name: product
             data_type: varchar
-            description: ""
+            description: "the name of the product"
           - name: product_description
             data_type: varchar
-            description: ""
+            description: "a short description "
           - name: unit_of_measure
             data_type: varchar
-            description: ""
+            description: "the amount of the product by the price"
           - name: current_wholesale_price
             data_type: float
-            description: ""
+            description: "current price for the companys"
           - name: current_retail_price
             data_type: float
-            description: ""
+            description: "current price for the normal clients"
           - name: tax_exempt_yn
             data_type: varchar
-            description: ""
+            description: "this clasifies if the client have to pay an exempt over the product"
           - name: promo_yn
             data_type: varchar
-            description: ""
+            description: "this clasifies if the product have a actual promo"
           - name: new_product_yn
             data_type: varchar
-            description: ""
+            description: "this clasifies if the product is new or not"
 
       - name: sales_reciepts
-        description: ""
+        description: "here are made the reciepts, is the center of the database"
         columns:
           - name: transaction_id
             data_type: number
-            description: ""
+            description: "number of the transaction done"
           - name: transaction_date
             data_type: date
-            description: ""
+            description: "when was the transaction done in date format"
           - name: transaction_time
             data_type: varchar
-            description: ""
+            description: "how long did it cost to did the transaction"
           - name: sales_outlet_id
             data_type: number
-            description: ""
+            description: "the number of the coffee shop"
           - name: staff_id
             data_type: number
-            description: ""
+            description: "the ID of the staff who done the transaction"
           - name: customer_id
             data_type: number
-            description: ""
+            description: "the ID of the registered customer"
           - name: instore_yn
             data_type: varchar
-            description: ""
+            description: "if the purchase was made inside the store or not"
           - name: order
             data_type: number
-            description: ""
+            description: "number of pruchases done - symbolic 1 as the client only do 1 purchase"
           - name: line_item_id
             data_type: number
-            description: ""
+            description: "dummy column, must remove"
           - name: product_id
             data_type: number
-            description: ""
+            description: "the ID of the product - see more in product table"
           - name: quantity
             data_type: number
-            description: ""
+            description: "quantity of the product bought"
           - name: line_item_amount
             data_type: float
-            description: ""
+            description: "amount of the product"
           - name: unit_price
             data_type: float
-            description: ""
+            description: "price of the product"
           - name: promo_item_yn
             data_type: varchar
-            description: ""
+            description: "if the product have an active promo yes or not"
 
       - name: sales_targets
-        description: ""
+        description: "the targets what shop wants to sell"
         columns:
           - name: sales_outlet_id
             data_type: number
-            description: ""
+            description: "just a number to identify as primary key"
           - name: year_month
             data_type: varchar
-            description: ""
+            description: "the month and year"
           - name: beans_goal
             data_type: number
-            description: ""
+            description: "the target to sell - beans"
           - name: beverage_goal
             data_type: number
-            description: ""
+            description: "the target to sell - beverage"
           - name: food_goal
             data_type: number
-            description: ""
+            description: "the target to sell - food"
           - name: merchandise_goal
             data_type: number
-            description: ""
+            description: "the target to sell - merchandising"
           - name: total_goal
             data_type: number
-            description: ""
+            description: "the target to sell - all"
 
       - name: staff
-        description: ""
+        description: "the table where you find the staff involved in the coffee shop"
         columns:
           - name: staff_id
             data_type: number
-            description: ""
+            description: "a number in order for every person working in"
           - name: first_name
             data_type: varchar
-            description: ""
+            description: "first name of the person"
           - name: last_name
             data_type: varchar
-            description: ""
+            description: "last name of the person"
           - name: position
             data_type: varchar
-            description: ""
+            description: "the actual position the person has reached"
           - name: start_date
             data_type: varchar
-            description: ""
+            description: "the moment when the person enter the job in"
           - name: location
             data_type: varchar
-            description: ""
+            description: "where is the person located in(the number of the shop, warehouse, or other)"
           - name: g
             data_type: number
-            description: ""
+            description: "dummy column, must remove later"
           - name: h
             data_type: number
-            description: ""
+            description: "dummy column, must remove later"
