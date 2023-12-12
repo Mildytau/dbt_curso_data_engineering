@@ -4,118 +4,148 @@ sources:
   - name: seed_data
     description: "all the info comes from previously seeded modified data"
     database: alumno8_dev_bronze_db
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 32, period: day}
+      error_after: {count: 33, period: day}
+
     tables:
-      - name: dates_april
-        description: "table with all days of april"
-        columns:
-          - name: transaction_date
-            data_type: varchar
-            description: "date format x/x/xxxx"
-          - name: date_id
-            data_type: number
-            description: "previous format but without / -> XxxxXxXx"
-          - name: week_id
-            data_type: number
-            description: "number of the week"
-          - name: week_desc
-            data_type: varchar
-            description: "a bit more detailed description of number of the week"
-          - name: month_id
-            data_type: number
-            description: "number of the month"
-          - name: month_name
-            data_type: varchar
-            description: "the name of the month"
-          - name: quarter_id
-            data_type: number
-            description: "the quarter of the year in number"
-          - name: quarter_name
-            data_type: varchar
-            description: "the quarter of the year but in format Qx"
-          - name: year_id
-            data_type: number
-            description: "the year ej:2019"
-
-      - name: generations
-        description: "a simple table to clasify niche info for sells"
-        columns:
-          - name: birth_year
-            data_type: number
-            description: "this column its a array of years from 1946 to 2015"
-          - name: generation
-            data_type: varchar
-            description: "this column clasify your born year as a different generation group"
-
-      - name: number_customer
+      - name: customer
         description: "table that contains the info of the registered usual clients"
         columns:
           - name: customer_id
             data_type: number
             description: "just a number to order upside down"
+            tests:
+              - unique
+              - not_null
           - name: home_store
             data_type: number
             description: "the number of the store"
+            tests:
+              - unique
+              - not_null
           - name: customer_first_name
             data_type: varchar
             description: "full name of the client"
+            tests:
+              - unique
+              - not_null
           - name: customer_email
             data_type: varchar
             description: "the email of each client"
+            tests:
+              - unique
+              - not_null
           - name: customer_since
             data_type: date
             description: "when was the client registered"
+            tests:
+              - unique
+              - not_null
           - name: loyalty_card_number
             data_type: varchar
             description: "the specific number of each client"
+            tests:
+              - unique
+              - not_null
           - name: birthdate
             data_type: date
             description: "birthdate"
+            tests:
+              - unique
+              - not_null
           - name: gender
             data_type: varchar
             description: "gender male or female"
+            tests:
+              - unique
+              - not_null
           - name: birth_year
             data_type: number
             description: "when was the client born"
+            tests:
+              - unique
+              - not_null
 
-      - name: number_sales_outlet
-        description: "where are the shops located"
+      - name: dates
+        description: "table with all days of april"
         columns:
-          - name: number_outlet_id
+          - name: transaction_date
+            data_type: varchar
+            description: "date format x/x/xxxx"
+            tests:
+              - unique
+              - not_null
+          - name: date_id
             data_type: number
-            description: "just a number to make it upside down"
-          - name: sales_outlet_type
-            data_type: varchar
-            description: "the type of shop warehouse or retail"
-          - name: store_square_feet
+            description: "previous format but without / -> XxxxXxXx"
+            tests:
+              - unique
+              - not_null
+          - name: week_id
             data_type: number
-            description: "how many feets tall is located"
-          - name: store_address
+            description: "number of the week"
+            tests:
+              - unique
+              - not_null
+          - name: week_desc
             data_type: varchar
-            description: "the address where you can find the shop"
-          - name: store_city
-            data_type: varchar
-            description: "the city where its located"
-          - name: store_state_province
-            data_type: varchar
-            description: "the province/state where is located"
-          - name: store_telephone
-            data_type: varchar
-            description: "a telephone to contact them"
-          - name: store_postal_code
+            description: "a bit more detailed description of number of the week"
+            tests:
+              - unique
+              - not_null
+          - name: month_id
             data_type: number
-            description: "just the postal code where its the shop"
-          - name: store_longitude
-            data_type: float
-            description: "the longitude where is located"
-          - name: store_latitude
-            data_type: float
-            description: "the latitude where is located"
-          - name: manager
-            data_type: number
-            description: "the number of the shop who manages"
-          - name: neighorhood
+            description: "number of the month"
+            tests:
+              - unique
+              - not_null
+          - name: month_name
             data_type: varchar
-            description: "the neighorhood inside the city where teh shop is located"
+            description: "the name of the month"
+            tests:
+              - unique
+              - not_null
+          - name: quarter_id
+            data_type: number
+            description: "the quarter of the year in number"
+            tests:
+              - unique
+              - not_null
+          - name: quarter_name
+            data_type: varchar
+            description: "the quarter of the year but in format Qx"
+            tests:
+              - unique
+              - not_null
+          - name: year_id
+            data_type: number
+            description: "the year ej:2019"
+            tests:
+              - unique
+              - not_null
+
+      - name: generations
+        description: "a simple table to sort out niche info for sells"
+        columns:
+          - name: birth_year
+            data_type: number
+            description: "this column its a array of years from 1946 to 2015"
+            tests:
+              - unique
+              - not_null
+          - name: generation
+            data_type: varchar
+            description: "this column clasify your born year as a different generation group"
+            tests:
+              - unique
+              - not_null
 
       - name: pastry_inventory
         description: "this table is made for control the waste of the products"
@@ -123,64 +153,197 @@ sources:
           - name: sales_outlet_id
             data_type: number
             description: "the number of the shop, later hash"
+            tests:
+              - unique
+              - not_null
           - name: transaction_date
             data_type: varchar
             description: "when was the transaction made"
+            tests:
+              - unique
+              - not_null
           - name: product_id
             data_type: number
             description: "the ID of the product"
+            tests:
+              - unique
+              - not_null
           - name: start_of_day
             data_type: number
             description: "how many units we have at the start of the day"
+            tests:
+              - unique
+              - not_null
           - name: quantity_sold
             data_type: number
             description: "units sold"
+            tests:
+              - unique
+              - not_null
           - name: waste
             data_type: number
             description: "units wasted"
+            tests:
+              - unique
+              - not_null
           - name: percentage_waste
             data_type: number
             description: "the percentage of the product wasted"
+            tests:
+              - unique
+              - not_null
 
       - name: product
         description: "this table contains the list of all products sell and more details of them"
         columns:
           - name: product_id
             data_type: number
-            description: "the ID of the product and a number to order them upside down"
+            description: "the ID of the product as primary key and a number to order them upside down"
+            tests:
+              - unique
+              - not_null
           - name: product_group
             data_type: varchar
             description: "this column clasifies the items as drinks, coffee beans, tea, or merchandising"
+            tests:
+              - unique
+              - not_null
           - name: product_category
             data_type: varchar
             description: "generic classification of the coffee/tea/product"
+            tests:
+              - unique
+              - not_null
           - name: product_type
             data_type: varchar
             description: "more specifies classification of the product inside product_category"
+            tests:
+              - unique
+              - not_null
           - name: product
             data_type: varchar
             description: "the name of the product"
+            tests:
+              - unique
+              - not_null
           - name: product_description
             data_type: varchar
-            description: "a short description "
+            description: "a short description of each product"
+            tests:
+              - unique
+              - not_null
           - name: unit_of_measure
             data_type: varchar
             description: "the amount of the product by the price"
+            tests:
+              - unique
+              - not_null
           - name: current_wholesale_price
             data_type: float
             description: "current price for the companys"
+            tests:
+              - unique
+              - not_null
           - name: current_retail_price
             data_type: float
             description: "current price for the normal clients"
+            tests:
+              - unique
+              - not_null
           - name: tax_exempt_yn
             data_type: varchar
             description: "this clasifies if the client have to pay an exempt over the product"
+            tests:
+              - unique
+              - not_null
           - name: promo_yn
             data_type: varchar
             description: "this clasifies if the product have a actual promo"
+            tests:
+              - unique
+              - not_null
           - name: new_product_yn
             data_type: varchar
             description: "this clasifies if the product is new or not"
+            tests:
+              - unique
+              - not_null
+
+      - name: sales_outlet
+        description: ""
+        columns:
+          - name: outlet_id
+            data_type: number
+            description: "just a number to make it upside down"
+            tests:
+              - unique
+              - not_null
+          - name: sales_outlet_type
+            data_type: varchar
+            description: "the type of shop warehouse or retail"
+            tests:
+              - unique
+              - not_null
+          - name: store_square_feet
+            data_type: number
+            description: "how many feets tall is located"
+            tests:
+              - unique
+              - not_null
+          - name: store_address
+            data_type: varchar
+            description: "the address where you can find the shop"
+            tests:
+              - unique
+              - not_null
+          - name: store_city
+            data_type: varchar
+            description: "the city where its located"
+            tests:
+              - unique
+              - not_null
+          - name: store_state_province
+            data_type: varchar
+            description: "the province/state where is located"
+            tests:
+              - unique
+              - not_null
+          - name: store_telephone
+            data_type: varchar
+            description: "a telephone to contact them"
+            tests:
+              - unique
+              - not_null
+          - name: store_postal_code
+            data_type: number
+            description: "just the postal code where its the shop"
+            tests:
+              - unique
+              - not_null
+          - name: store_longitude
+            data_type: float
+            description: "the longitude where is located"
+            tests:
+              - unique
+              - not_null
+          - name: store_latitude
+            data_type: float
+            description: "the latitude where is located"
+            tests:
+              - unique
+              - not_null
+          - name: manager
+            data_type: number
+            description: "the number of the shop who manages"
+            tests:
+              - unique
+              - not_null
+          - name: neighorhood
+            data_type: varchar
+            description: "the neighorhood inside the city where teh shop is located"
+            tests:
+              - unique
+              - not_null
 
       - name: sales_reciepts
         description: "here are made the reciepts, is the center of the database"
@@ -188,45 +351,84 @@ sources:
           - name: transaction_id
             data_type: number
             description: "number of the transaction done"
+            tests:
+              - unique
+              - not_null
           - name: transaction_date
             data_type: date
             description: "when was the transaction done in date format"
+            tests:
+              - unique
+              - not_null
           - name: transaction_time
             data_type: varchar
             description: "how long did it cost to did the transaction"
+            tests:
+              - unique
+              - not_null
           - name: sales_outlet_id
             data_type: number
             description: "the number of the coffee shop"
+            tests:
+              - unique
+              - not_null
           - name: staff_id
             data_type: number
             description: "the ID of the staff who done the transaction"
+            tests:
+              - unique
+              - not_null
           - name: customer_id
             data_type: number
             description: "the ID of the registered customer"
+            tests:
+              - unique
+              - not_null
           - name: instore_yn
             data_type: varchar
             description: "if the purchase was made inside the store or not"
+            tests:
+              - unique
+              - not_null
           - name: order
             data_type: number
             description: "number of pruchases done - symbolic 1 as the client only do 1 purchase"
+            tests:
+              - unique
+              - not_null
           - name: line_item_id
             data_type: number
             description: "dummy column, must remove"
           - name: product_id
             data_type: number
             description: "the ID of the product - see more in product table"
+            tests:
+              - unique
+              - not_null
           - name: quantity
             data_type: number
             description: "quantity of the product bought"
+            tests:
+              - unique
+              - not_null
           - name: line_item_amount
             data_type: float
             description: "amount of the product"
+            tests:
+              - unique
+              - not_null
           - name: unit_price
             data_type: float
             description: "price of the product"
+            tests:
+              - unique
+              - not_null
           - name: promo_item_yn
             data_type: varchar
             description: "if the product have an active promo yes or not"
+            tests:
+              - unique
+              - not_null
 
       - name: sales_targets
         description: "the targets what shop wants to sell"
@@ -234,24 +436,45 @@ sources:
           - name: sales_outlet_id
             data_type: number
             description: "just a number to identify as primary key"
+            tests:
+              - unique
+              - not_null
           - name: year_month
             data_type: varchar
             description: "the month and year"
+            tests:
+              - unique
+              - not_null
           - name: beans_goal
             data_type: number
             description: "the target to sell - beans"
+            tests:
+              - unique
+              - not_null
           - name: beverage_goal
             data_type: number
             description: "the target to sell - beverage"
+            tests:
+              - unique
+              - not_null
           - name: food_goal
             data_type: number
             description: "the target to sell - food"
+            tests:
+              - unique
+              - not_null
           - name: merchandise_goal
             data_type: number
             description: "the target to sell - merchandising"
+            tests:
+              - unique
+              - not_null
           - name: total_goal
             data_type: number
             description: "the target to sell - all"
+            tests:
+              - unique
+              - not_null
 
       - name: staff
         description: "the table where you find the staff involved in the coffee shop"
@@ -259,21 +482,39 @@ sources:
           - name: staff_id
             data_type: number
             description: "a number in order for every person working in"
+            tests:
+              - unique
+              - not_null
           - name: first_name
             data_type: varchar
             description: "first name of the person"
+            tests:
+              - unique
+              - not_null
           - name: last_name
             data_type: varchar
             description: "last name of the person"
+            tests:
+              - unique
+              - not_null
           - name: position
             data_type: varchar
             description: "the actual position the person has reached"
+            tests:
+              - unique
+              - not_null
           - name: start_date
             data_type: varchar
             description: "the moment when the person enter the job in"
+            tests:
+              - unique
+              - not_null
           - name: location
             data_type: varchar
             description: "where is the person located in(the number of the shop, warehouse, or other)"
+            tests:
+              - unique
+              - not_null
           - name: g
             data_type: number
             description: "dummy column, must remove later"

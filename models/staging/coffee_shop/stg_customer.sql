@@ -1,20 +1,20 @@
 {{ config(materialized='table') }}
 
 with source as (
-    select * from {{ source('seed_data', 'number_customer') }}
+    select * from {{ source('seed_data', 'customer') }}
 ),
 
 renamed as (
     select
-        cast("customer_id" as number) as customer_id,
-        cast("home_store" as number) as home_store,
-        cast("customer_first_name" as varchar(4096)) as customer_first_name,
-        cast("customer_email" as varchar(4096)) as customer_email,
-        cast("customer_since" as date) as customer_since,
-        cast("loyalty_card_number" as varchar(4096)) as loyalty_card_number,
-        cast("birthdate" as date) as birth_date,
-        cast("gender" as varchar(4096)) as gender,
-        cast("birth_year" as number) as birth_year
+        cast(customer_id as number) as customer_id,
+        cast(home_store as number) as home_store,
+        cast(customer_first_name as varchar(4096)) as customer_first_name,
+        cast(customer_email as varchar(4096)) as customer_email,
+        cast(customer_since as date) as customer_since,
+        cast(loyalty_card_number as varchar(4096)) as loyalty_card_number,
+        cast(birthdate as date) as birth_date,
+        cast(gender as varchar(4096)) as gender,
+        cast(birth_year as number) as birth_year
     from source
 ),
 

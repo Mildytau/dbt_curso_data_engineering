@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with source as (
-    select * from {{ ref('int_staff') }}
+    select * from {{ ref('stg_staff') }}
 ),
 
 renamed as (

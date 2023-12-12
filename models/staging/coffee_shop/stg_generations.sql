@@ -6,8 +6,8 @@ with source as (
 
 renamed as (
     select
-        cast("birth_year" as number) as birth_year,
-        cast("generation" as varchar(4096)) as generation
+        cast(birth_year as number) as birth_year,
+        cast(generation as varchar(4096)) as generation
     from source
 )
 

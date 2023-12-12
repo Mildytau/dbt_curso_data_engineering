@@ -6,13 +6,13 @@ with source as (
 
 renamed as (
     select
-        cast("sales_outlet_id" as number) as sales_outlet_id,
-        cast("transaction_date" as varchar(4096)) as transaction_date,
-        cast("product_id" as number) as product_id,
-        cast("start_of_day" as number) as start_of_day,
-        cast("quantity_sold" as number) as quantity_sold,
-        cast("waste" as number) as waste,
-        cast("percentage_waste" as number) as percentage_waste
+        cast(sales_outlet_id as number) as sales_outlet_id,
+        cast(transaction_date as varchar(4096)) as transaction_date,
+        cast(product_id as number) as product_id,
+        cast(start_of_day as number) as start_of_day,
+        cast(quantity_sold as number) as quantity_sold,
+        cast(waste as number) as waste,
+        cast(percentage_waste as number) as percentage_waste
     from source
 ),
 

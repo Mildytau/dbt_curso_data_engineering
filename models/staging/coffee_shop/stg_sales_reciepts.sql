@@ -6,19 +6,19 @@ with source as (
 
 renamed as (
     select
-        cast("transaction_id" as number) as transaction_id,
-        cast("transaction_date" as date) as transaction_date,
-        cast("transaction_time" as varchar(4096)) as transaction_time,
-        cast("sales_outlet_id" as number) as sales_outlet_id,
-        cast("staff_id" as number) as staff_id,
-        cast("customer_id" as number) as customer_id,
-        cast("instore_yn" as varchar(4096)) as instore_yn,
-        cast("order" as number) as orders,
-        cast("product_id" as number) as product_id,
-        cast("quantity" as number) as quantity,
-        cast("line_item_amount" as float) as line_item_amount,
-        cast("unit_price" as float) as unit_price,
-        cast("promo_item_yn" as varchar(4096)) as promo_item_yn
+        cast(transaction_id as number) as transaction_id,
+        cast(transaction_date as date) as transaction_date,
+        cast(transaction_time as varchar(4096)) as transaction_time,
+        cast(sales_outlet_id as number) as sales_outlet_id,
+        cast(staff_id as number) as staff_id,
+        cast(customer_id as number) as customer_id,
+        cast(instore_yn as varchar(4096)) as instore_yn,
+        cast(order as number) as orders,
+        cast(product_id as number) as product_id,
+        cast(quantity as number) as quantity,
+        cast(line_item_amount as float) as line_item_amount,
+        cast(unit_price as float) as unit_price,
+        cast(promo_item_yn as varchar(4096)) as promo_item_yn
     from source
 ),
 
