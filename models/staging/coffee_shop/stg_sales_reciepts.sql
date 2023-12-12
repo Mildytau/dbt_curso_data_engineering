@@ -13,7 +13,7 @@ renamed as (
         cast(staff_id as number) as staff_id,
         cast(customer_id as number) as customer_id,
         cast(instore_yn as varchar(4096)) as instore_yn,
-        cast(order as number) as orders,
+        cast(orders as number) as orders,
         cast(product_id as number) as product_id,
         cast(quantity as number) as quantity,
         cast(line_item_amount as float) as line_item_amount,

@@ -390,7 +390,7 @@ sources:
             tests:
               - unique
               - not_null
-          - name: order
+          - name: orders
             data_type: number
             description: "number of pruchases done - symbolic 1 as the client only do 1 purchase"
             tests:
