@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with source as (
-    select * from {{ ref('stg_generations') }}
+    select * from {{ source('coffee_shop','stg_generations') }}
 ),
 
 renamed as (

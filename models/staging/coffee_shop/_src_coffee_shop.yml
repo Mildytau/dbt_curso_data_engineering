@@ -1,26 +1,16 @@
 version: 2
 
 sources:
-  - name: seed_data
-    description: "all the info comes from previously seeded modified data"
-    database: alumno8_dev_bronze_db
-
-    quoting:
-      database: false
-      schema: false
-      identifier: false
-
-    freshness:
-      warn_after: {count: 32, period: day}
-      error_after: {count: 33, period: day}
-
+  - name: coffee_shop
+    description: "source with refined info from seed_data"
+    database: alumno8_dev_silver_db
     tables:
-      - name: customer
+      - name: stg_customer
         description: "table that contains the info of the registered usual clients"
         columns:
           - name: customer_id
-            data_type: number
-            description: "just a number to order upside down"
+            data_type: varchar
+            description: "just a number to order upside down as primery key"
             tests:
               - unique
               - not_null
@@ -50,19 +40,19 @@ sources:
               - not_null
           - name: loyalty_card_number
             data_type: varchar
-            description: "the specific number of each client"
+            description: "the specific number card of each client"
             tests:
               - unique
               - not_null
-          - name: birthdate
+          - name: birth_date
             data_type: date
-            description: "birthdate"
+            description: "birthdate of each client"
             tests:
               - unique
               - not_null
           - name: gender
             data_type: varchar
-            description: "gender male or female"
+            description: "gender of each client"
             tests:
               - unique
               - not_null
@@ -73,86 +63,28 @@ sources:
               - unique
               - not_null
 
-      - name: dates
-        description: "table with all days of april"
-        columns:
-          - name: transaction_date
-            data_type: varchar
-            description: "date format x/x/xxxx"
-            tests:
-              - unique
-              - not_null
-          - name: date_id
-            data_type: number
-            description: "previous format but without / -> XxxxXxXx"
-            tests:
-              - unique
-              - not_null
-          - name: week_id
-            data_type: number
-            description: "number of the week"
-            tests:
-              - unique
-              - not_null
-          - name: week_desc
-            data_type: varchar
-            description: "a bit more detailed description of number of the week"
-            tests:
-              - unique
-              - not_null
-          - name: month_id
-            data_type: number
-            description: "number of the month"
-            tests:
-              - unique
-              - not_null
-          - name: month_name
-            data_type: varchar
-            description: "the name of the month"
-            tests:
-              - unique
-              - not_null
-          - name: quarter_id
-            data_type: number
-            description: "the quarter of the year in number"
-            tests:
-              - unique
-              - not_null
-          - name: quarter_name
-            data_type: varchar
-            description: "the quarter of the year but in format Qx"
-            tests:
-              - unique
-              - not_null
-          - name: year_id
-            data_type: number
-            description: "the year ej:2019"
-            tests:
-              - unique
-              - not_null
-
-      - name: generations
+      - name: stg_generations
         description: "a simple table to sort out niche info for sells"
         columns:
           - name: birth_year
             data_type: number
-            description: "this column its a array of years from 1946 to 2015"
+            description: "this column its an array of years from 1946 to 2015"
             tests:
               - unique
               - not_null
           - name: generation
             data_type: varchar
-            description: "this column clasify your born year as a different generation group"
+            description: "this column sort out your born year as a different generation group"
             tests:
               - unique
               - not_null
 
-      - name: pastry_inventory
+      - name: stg_pastry_inventory
         description: "this table is made for control the waste of the products"
         columns:
           - name: sales_outlet_id
-            data_type: number
-            description: "the number of the shop, later hash"
+            data_type: varchar
+            description: "the number of the shop"
             tests:
               - unique
               - not_null
@@ -163,7 +95,7 @@ sources:
               - unique
               - not_null
           - name: product_id
-            data_type: number
+            data_type: varchar
             description: "the ID of the product"
             tests:
               - unique
@@ -193,11 +125,11 @@ sources:
               - unique
               - not_null
 
-      - name: product
+      - name: stg_product
         description: "this table contains the list of all products sell and more details of them"
         columns:
           - name: product_id
-            data_type: number
+            data_type: varchar
             description: "the ID of the product as primary key and a number to order them upside down"
             tests:
               - unique
@@ -269,12 +201,12 @@ sources:
               - unique
               - not_null
 
-      - name: sales_outlet
+      - name: stg_sales_outlet
         description: "this table contains info about where are the warehouses and shops located"
         columns:
-          - name: outlet_id
-            data_type: number
-            description: "just a number to make it upside down"
+          - name: sales_outlet_id
+            data_type: varchar
+            description: "just a number to make it upside down as primary key"
             tests:
               - unique
               - not_null
@@ -345,12 +277,12 @@ sources:
               - unique
               - not_null
 
-      - name: sales_reciepts
+      - name: stg_sales_reciepts
         description: "here are made the reciepts, is the center of the database"
         columns:
           - name: transaction_id
-            data_type: number
-            description: "number of the transaction done"
+            data_type: varchar
+            description: "number of the transaction done,hash"
             tests:
               - unique
               - not_null
@@ -367,19 +299,19 @@ sources:
               - unique
               - not_null
           - name: sales_outlet_id
-            data_type: number
+            data_type: varchar
             description: "the number of the coffee shop"
             tests:
               - unique
               - not_null
           - name: staff_id
-            data_type: number
+            data_type: varchar
             description: "the ID of the staff who done the transaction"
             tests:
               - unique
               - not_null
           - name: customer_id
-            data_type: number
+            data_type: varchar
             description: "the ID of the registered customer"
             tests:
               - unique
@@ -396,11 +328,8 @@ sources:
             tests:
               - unique
               - not_null
-          - name: line_item_id
-            data_type: number
-            description: "dummy column, must remove"
           - name: product_id
-            data_type: number
+            data_type: varchar
             description: "the ID of the product - see more in product table"
             tests:
               - unique
@@ -430,18 +359,18 @@ sources:
               - unique
               - not_null
 
-      - name: sales_targets
+      - name: stg_sales_targets
         description: "the targets what shop wants to sell"
         columns:
           - name: sales_outlet_id
-            data_type: number
+            data_type: varchar
             description: "just a number to identify as primary key"
             tests:
               - unique
               - not_null
           - name: year_month
             data_type: varchar
-            description: "the month and year"
+            description: "the month and the year"
             tests:
               - unique
               - not_null
@@ -476,11 +405,11 @@ sources:
               - unique
               - not_null
 
-      - name: staff
+      - name: stg_staff
         description: "the table where you find the staff involved in the coffee shop"
         columns:
           - name: staff_id
-            data_type: number
+            data_type: varchar
             description: "a number in order for every person working in"
             tests:
               - unique
@@ -504,8 +433,8 @@ sources:
               - unique
               - not_null
           - name: start_date
-            data_type: varchar
-            description: "the moment when the person enter the job in"
+            data_type: date
+            description: the moment when the person enter the job in"
             tests:
               - unique
               - not_null
@@ -515,9 +444,3 @@ sources:
             tests:
               - unique
               - not_null
-          - name: g
-            data_type: number
-            description: "dummy column, must remove later"
-          - name: h
-            data_type: number
-            description: "dummy column, must remove later"
