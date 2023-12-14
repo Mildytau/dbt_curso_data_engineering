@@ -39,10 +39,6 @@ models:
     staging:
       +materialized: table
       +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
-      google_sheets:
-        +schema: google_sheets
-      sql_server_dbo:
-        +schema: sql_server_dbo
       coffee_shop:
         +schema: coffee_shop
       seed_data:
@@ -55,6 +51,12 @@ models:
         +schema: core
         intermediate:
           +schema: intermediate
+      finance:
+        +schema: finance
+      marketing:
+        +schema: marketing
+      product:
+        +schema: product
 seeds:
   +schema: seed_data
   +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
