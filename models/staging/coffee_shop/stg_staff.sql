@@ -17,12 +17,12 @@ renamed as (
 
 with_coalesce as (
     select
-        coalesce(nullif(staff_id,''), NULL) as staff_id
-        coalesce(nullif(first_name,''), NULL) as first_name
-        coalesce(nullif(last_name,''), NULL) as last_name
-        coalesce(nullif(position,''), NULL) as position
-        coalesce(nullif(start_date,''), NULL) as start_date
-        coalesce(nullif(location,''), NULL) as location
+        coalesce(nullif(staff_id, ''), NULL) as staff_id,
+        coalesce(nullif(first_name, ''), NULL) as first_name,
+        coalesce(nullif(last_name, ''), NULL) as last_name,
+        coalesce(nullif(position, ''), NULL) as position,
+        coalesce(nullif(start_date, ''), NULL) as start_date,
+        coalesce(nullif(location, ''), NULL) as location
     from renamed
 ),
 
@@ -40,7 +40,7 @@ with_re_change as (
 with_hash as (
     select
         cast(
-            {{ dbt_utils.generate_surrogate_key(["staff_id"])}} as varchar(4096)
+            {{ dbt_utils.generate_surrogate_key(["staff_id"]) }} as varchar(4096)
         ) as staff_id,
         first_name,
         last_name,

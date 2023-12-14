@@ -20,15 +20,15 @@ renamed as (
 
 with_coalesce as (
     select
-        coalesce(nullif(customer_id,''), NULL) as customer_id,
-        coalesce(nullif(home_store,''), NULL) as home_store,
-        coalesce(nullif(customer_first_name,''), NULL) as customer_first_name,
-        coalesce(nullif(customer_email,''), NULL) as customer_email,
-        coalesce(nullif(customer_since,''), NULL) as customer_since,
-        coalesce(nullif(loyalty_card_number,''), NULL) as loyalty_card_number,
-        coalesce(nullif(birth_date,''), NULL) as birth_date,
-        coalesce(nullif(gender,''), NULL) as gender,
-        coalesce(nullif(birth_year,''), NULL) as birth_year,
+        coalesce(nullif(customer_id, ''), NULL) as customer_id,
+        coalesce(nullif(home_store, ''), NULL) as home_store,
+        coalesce(nullif(customer_first_name, ''), NULL) as customer_first_name,
+        coalesce(nullif(customer_email, ''), NULL) as customer_email,
+        coalesce(nullif(customer_since, ''), NULL) as customer_since,
+        coalesce(nullif(loyalty_card_number, ''), NULL) as loyalty_card_number,
+        coalesce(nullif(birth_date, ''), NULL) as birth_date,
+        coalesce(nullif(gender, ''), NULL) as gender,
+        coalesce(nullif(birth_year, ''), NULL) as birth_year
     from renamed
 ),
 
@@ -40,7 +40,7 @@ with_re_change as (
         customer_email,
         cast(customer_since as date) as customer_since,
         loyalty_card_number,
-        cast(birthdate as date) as birth_date,
+        cast(birth_date as date) as birth_date,
         gender,
         cast(birth_year as number) as birth_year
     from with_coalesce
@@ -59,7 +59,7 @@ with_hash as (
         birth_date,
         gender,
         birth_year
-    from with_re_number
+    from with_re_change
 )
 
 select * from with_hash
